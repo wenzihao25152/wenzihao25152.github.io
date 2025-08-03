@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Codes</title>
+    <!-- 引入Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <!-- 引入Prism.js代码高亮 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-okaidia.min.css" rel="stylesheet" />
+    <style>
+        /* 全局样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f7fa;
+            padding-bottom: 50px;
+        }
+        
+        a {
+            text-decoration: none;
+            color: #3a86ff;
+        }
+        
+        a:hover {
+            color: #2667cc;
+        }
+        
+        /* 布局样式 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 头部样式 */
+        header {
+            background-color: #2b2d42;
+            color: white;
+            padding: 30px 0;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+        
+        /* 导航栏 */
+        nav {
+            background-color: #3a86ff;
+            padding: 15px 0;
+            margin-bottom: 30px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+        
+        nav ul li {
+            margin: 0 15px;
+        }
+        
+        nav ul li a {
+            color: white;
+            font-weight: 500;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+        
+        /* 代码分类区 */
+        .category {
+            margin-bottom: 50px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+        
+        .category-header {
+            background-color: #3a86ff;
+            color: white;
+            padding: 15px 20px;
+            font-size: 1.3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .category-count {
+            background: rgba(255,255,255,0.2);
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        /* 代码卡片 */
+        .code-card {
+            border-bottom: 1px solid #eee;
+            padding: 20px;
+        }
+        
+        .code-card:last-child {
+            border-bottom: none;
+        }
+        
+        .code-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #2b2d42;
+        }
+        
+        .code-description {
+            margin-bottom: 15px;
+            color: #666;
+        }
+        
+        /* 代码高亮区域 */
+        pre[class*="language-"] {
+            margin: 0;
+            border-radius: 0 0 8px 8px;
+        }
+        
+        .code-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #888;
+        }
+        
+        /* 页脚 */
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2rem;
+            }
+            
+            nav ul li {
+                margin: 5px 10px;
+            }
+            
+            .category-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .category-count {
+                margin-top: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部区域 -->
+    <header>
+        <div class="container header-content">
+            <h1 class="logo">Python Codes</h1>
+            <p class="subtitle">整理与分享有用的Python代码片段</p>
+        </div>
+    </header>
+    
+    <!-- 导航栏 -->
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="Untitled-6.html">"天网"加密系统</a></li>
+                <li><a href="#data-structures">数据结构</a></li>
+                <li><a href="#algorithms">算法</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- 主要内容区 -->
+    <div class="container">
+        <!-- 基础语法分类 -->
+        <section id="basic" class="category">
+            <div class="category-header">
+                <h2>基础语法</h2>
+                <span class="category-count">5个代码片段</span>
+            </div>
+            
+            <div class="code-card">
+                <h3 class="code-title">Hello World</h3>
+                <p class="code-description">最基本的Python程序</p>
+                <pre><code class="language-python"># 最简单的Python程序
+print("Hello, World!")</code></pre>
+                <div class="code-meta">
+                    <span>添加于: 2023-05-10</span>
+                    <span>标签: 基础, 入门</span>
+                </div>
+            </div>
+            
+            <div class="code-card">
+                <h3 class="code-title">变量交换</h3>
+                <p class="code-description">Python中交换两个变量的优雅方式</p>
+                <pre><code class="language-python"># 传统方式
+a = 5
+b = 10
+temp = a
+a = b
+b = temp
+
+# Pythonic方式
+a, b = b, a</code></pre>
+                <div class="code-meta">
+                    <span>添加于: 2023-05-12</span>
+                    <span>标签: 基础, 技巧</span>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 数据结构分类 -->
+        <section id="data-structures" class="category">
+            <div class="category-header">
+                <h2>数据结构</h2>
+                <span class="category-count">3个代码片段</span>
+            </div>
+            
+            <div class="code-card">
+                <h3 class="code-title">列表推导式</h3>
+                <p class="code-description">Python中强大的列表推导式示例</p>
+                <pre><code class="language-python"># 生成平方数列表
+squares = [x**2 for x in range(10)]
+
+# 带条件的列表推导式
+even_squares = [x**2 for x in range(10) if x % 2 == 0]
+
+# 嵌套列表推导式
+matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+flattened = [num for row in matrix for num in row]</code></pre>
+                <div class="code-meta">
+                    <span>添加于: 2023-05-15</span>
+                    <span>标签: 列表, 推导式</span>
+                </div>
+            </div>
+            
+            <div class="code-card">
+                <h3 class="code-title">字典合并</h3>
+                <p class="code-description">Python 3.5+中合并字典的几种方法</p>
+                <pre><code class="language-python">dict1 = {'a': 1, 'b': 2}
+dict2 = {'b': 3, 'c': 4}
+
+# 方法1: 使用 {**dict1, **dict2}
+merged = {**dict1, **dict2}
+
+# 方法2: Python 3.9+ 使用 |
+merged = dict1 | dict2
+
+# 保留原始字典
+dict1.update(dict2)  # dict1会被修改</code></pre>
+                <div class="code-meta">
+                    <span>添加于: 2023-05-18</span>
+                    <span>标签: 字典, 合并</span>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 算法分类 -->
+        <section id="algorithms" class="category">
+            <div class="category-header">
+                <h2>算法</h2>
+                <span class="category-count">2个代码片段</span>
+            </div>
+            
+            <div class="code-card">
+                <h3 class="code-title">快速排序</h3>
+                <p class="code-description">Python实现的快速排序算法</p>
+                <pre><code class="language-python">def quicksort(arr):
+    if len(arr) <= 1:
+        return arr
+    pivot = arr[len(arr) // 2]
+    left = [x for x in arr if x < pivot]
+    middle = [x for x in arr if x == pivot]
+    right = [x for x in arr if x > pivot]
+    return quicksort(left) + middle + quicksort(right)
+
+# 使用示例
+print(quicksort([3,6,8,10,1,2,1]))  # 输出: [1, 1, 2, 3, 6, 8, 10]</code></pre>
+                <div class="code-meta">
+                    <span>添加于: 2023-05-20</span>
+                    <span>标签: 排序, 递归</span>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <p>© 2023 Python代码收藏</p>
+        </div>
+    </footer>
+    
+    <!-- 引入Prism.js代码高亮库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+</body>
+</html>

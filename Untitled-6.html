@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>天网加密系统</title>
+    <!-- 引入Prism.js代码高亮 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-okaidia.min.css" rel="stylesheet">
+    <!-- 引入Font Awesome图标 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 全局样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #e0e0e0;
+            background-color: #121212;
+            padding-bottom: 50px;
+        }
+        
+        /* 布局样式 */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 头部样式 */
+        header {
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            color: white;
+            padding: 50px 0;
+            margin-bottom: 30px;
+            text-align: center;
+            border-bottom: 3px solid #00d4ff;
+        }
+        
+        .project-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+        
+        .project-subtitle {
+            font-size: 1.2rem;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+        
+        /* 代码展示区 */
+        .code-section {
+            background: #1e1e1e;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            margin-bottom: 30px;
+            border-left: 4px solid #00d4ff;
+        }
+        
+        .code-header {
+            background: #252526;
+            color: #d4d4d4;
+            padding: 12px 20px;
+            font-family: 'Consolas', monospace;
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #333;
+        }
+        
+        .code-filename {
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+        }
+        
+        .code-filename i {
+            margin-right: 10px;
+            color: #00d4ff;
+        }
+        
+        .copy-btn {
+            background: #333;
+            color: #d4d4d4;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Consolas', monospace;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+        }
+        
+        .copy-btn:hover {
+            background: #00d4ff;
+            color: #121212;
+        }
+        
+        pre[class*="language-"] {
+            margin: 0;
+            border-radius: 0;
+            background: #1e1e1e !important;
+        }
+        
+        /* 功能说明 */
+        .features {
+            background: #1e1e1e;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            padding: 25px;
+            margin-bottom: 30px;
+            border-left: 4px solid #00d4ff;
+        }
+        
+        .features-title {
+            font-size: 1.5rem;
+            color: #00d4ff;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #333;
+            display: flex;
+            align-items: center;
+        }
+        
+        .features-title i {
+            margin-right: 10px;
+        }
+        
+        .feature-item {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #333;
+        }
+        
+        .feature-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .feature-title {
+            font-weight: 500;
+            color: #00d4ff;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        /* 页脚 */
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .project-title {
+                font-size: 2rem;
+            }
+            
+            .project-subtitle {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部区域 -->
+    <header>
+        <div class="container">
+            <h1 class="project-title"><i class="fas fa-lock"></i> 天网加密系统</h1>
+            <p class="project-subtitle">高级对称加密算法实现</p>
+        </div>
+    </header>
+    
+    <!-- 主要内容区 -->
+    <div class="container">
+        <!-- 代码展示 -->
+        <div class="code-section">
+            <div class="code-header">
+                <span class="code-filename"><i class="fas fa-file-code"></i> tianwang_cipher.py</span>
+                <button class="copy-btn" onclick="copyCode()">复制代码</button>
+            </div>
+            <pre><code class="language-python">import time
+
+def create_cipher():
+    """创建加密解密映射字典"""
+    plain_text = [
+        'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+        'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+        'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+        ' ', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '+', '=', 
+        '[', ']', '{', '}', ';', ':', '"', "'", ',', '.', '&lt;', '&gt;', '/', '?', '\\', '|',' '
+    ]
+    
+    cipher_text = [
+        'Z', 'Y', 'X', 'W', 'V', 'U', 'T', 'S', 'R', 'Q', 'P', 'O', 'N',
+        'M', 'L', 'K', 'J', 'I', 'H', 'G', 'F', 'E', 'D', 'C', 'B', 'A',
+        'z', 'y', 'x', 'w', 'v', 'u', 't', 's', 'r', 'q', 'p', 'o', 'n',
+        'm', 'l', 'k', 'j', 'i', 'h', 'g', 'f', 'e', 'd', 'c', 'b', 'a',
+        '9', '8', '7', '6', '5', '4', '3', '2', '1', '0',
+        '#', '!', '@', '$', '%', '^', '&', '*', '(', ')', '-', '_', '+', '=',
+        ']', '[', '}', '{', ':', ';', "'", '"', ',', '.', '&gt;', '&lt;', '?', '/', '|', '\\',' '
+    ]
+    
+    encrypt_dict = {plain: cipher for plain, cipher in zip(plain_text, cipher_text)}
+    decrypt_dict = {cipher: plain for plain, cipher in zip(plain_text, cipher_text)}
+    return encrypt_dict, decrypt_dict
+
+def encrypt(message, encrypt_dict):
+    """加密消息"""
+    encrypted = []
+    for char in message:
+        encrypted.append(encrypt_dict.get(char, char))
+    return ''.join(encrypted)
+
+def decrypt(ciphertext, decrypt_dict):
+    """解密消息"""
+    decrypted = []
+    for char in ciphertext:
+        decrypted.append(decrypt_dict.get(char, char))
+    return ''.join(decrypted)
+
+def main():
+    """主程序"""
+    encrypt_dict, decrypt_dict = create_cipher()
+    while True:
+        time.sleep(1)
+        print("\n天网加密系统")
+        print("1. 加密消息")
+        print("2. 解密消息")
+        print("3. 退出系统")
+        choice = input("请选择操作 (1/2/3): ")
+        
+        if choice == '1':
+            message = input("请输入要加密的明文: ")
+            encrypted = encrypt(message, encrypt_dict)
+            print(f"\n加密结果: {encrypted}")
+        elif choice == '2':
+            ciphertext = input("请输入要解密的密文: ")
+            decrypted = decrypt(ciphertext, decrypt_dict)
+            print(f"\n解密结果: {decrypted}")
+        elif choice == '3':
+            print("系统退出...")
+            break
+        else:
+            print("无效输入，请重新选择")
+
+if __name__ == "__main__":
+    main()</code></pre>
+        </div>
+        
+        <!-- 功能说明 -->
+        <div class="features">
+            <h2 class="features-title"><i class="fas fa-cogs"></i> 系统功能说明</h2>
+            
+            <div class="feature-item">
+                <h3 class="feature-title">对称加密算法</h3>
+                <p>天网系统采用自定义对称加密算法，每个字符都有对应的加密字符映射，确保数据安全。</p>
+            </div>
+            
+            <div class="feature-item">
+                <h3 class="feature-title">全面字符支持</h3>
+                <p>支持大小写字母(A-Z,a-z)、数字(0-9)以及各种特殊符号(!@#$%^&*等)，满足各种加密需求。</p>
+            </div>
+            
+            <div class="feature-item">
+                <h3 class="feature-title">交互式命令行界面</h3>
+                <p>提供简洁易用的命令行交互界面，用户可选择加密、解密或退出系统。</p>
+            </div>
+            
+            <div class="feature-item">
+                <h3 class="feature-title">安全可靠</h3>
+                <p>加密解密过程完全在本地运行，不依赖网络连接，确保数据不会外泄。</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <p>© 2023 天网加密系统 | 高级数据安全解决方案</p>
+        </div>
+    </footer>
+    
+    <!-- 引入Prism.js代码高亮库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+    
+    <!-- 复制代码功能 -->
+    <script>
+        function copyCode() {
+            const code = document.querySelector('code').innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                const btn = document.querySelector('.copy-btn');
+                btn.textContent = '已复制!';
+                setTimeout(() => {
+                    btn.textContent = '复制代码';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>

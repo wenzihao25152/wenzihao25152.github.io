@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的联系方式</title>
+    <!-- 引入Font Awesome图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 引入Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* 全局样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', 'Noto Sans SC', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+            padding-bottom: 50px;
+        }
+        
+        /* 卡片阴影效果 */
+        .card-shadow {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* 布局样式 */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 头部样式 */
+        header {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            padding: 60px 0 80px;
+            margin-bottom: -40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: #f8f9fa;
+            transform: skewY(-3deg);
+            z-index: 1;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid white;
+            margin-bottom: 20px;
+            background-color: #eee;
+            display: inline-block;
+        }
+        
+        .name {
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .title {
+            font-size: 1.2rem;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+        
+        /* 联系方式卡片 */
+        .contact-card {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 3;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: #2c3e50;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            border-radius: 3px;
+        }
+        
+        /* 联系方式列表 */
+        .contact-list {
+            list-style: none;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .contact-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        
+        .contact-info {
+            flex-grow: 1;
+        }
+        
+        .contact-platform {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .contact-detail {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2575fc;
+            word-break: break-all;
+        }
+        
+        .contact-note {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+        
+        /* 二维码区域 */
+        .qr-section {
+            margin-top: 40px;
+        }
+        
+        .qr-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .qr-card {
+            text-align: center;
+        }
+        
+        .qr-code {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 15px;
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        
+        .qr-label {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+        
+        /* 页脚 */
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        .social-links {
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #eee;
+            color: #2c3e50;
+            line-height: 40px;
+            margin: 0 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            header {
+                padding: 40px 0 60px;
+            }
+            
+            .name {
+                font-size: 1.8rem;
+            }
+            
+            .contact-card {
+                padding: 30px 20px;
+            }
+            
+            .contact-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .contact-icon {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .qr-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部区域 -->
+    <header class="card-shadow">
+            <h1 class="name">温泉havedream</h1>
+            <p class="title">欢迎通过以下方式联系我</p>
+        </div>
+    </header>
+    
+    <!-- 主要内容区 -->
+    <div class="container">
+        <!-- 联系方式卡片 -->
+        <div class="contact-card card-shadow">
+            <h2 class="section-title">联系方式</h2>
+            <ul class="contact-list">
+                <li class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fab fa-qq"></i>
+                    </div>
+                    <div class="contact-info">
+                        <div class="contact-platform">QQ</div>
+                        <div class="contact-detail">762349184</div>
+                        <div class="contact-note">@_@</div>
+                    </div>
+                </li>
+                
+                <li class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fab fa-weixin"></i>
+                    </div>
+                    <div class="contact-info">
+                        <div class="contact-platform">微信</div>
+                        <div class="contact-detail">wenzihao25152</div>
+                        <div class="contact-note">添加时请注明来意</div>
+                    </div>
+                </li>
+                
+                <li class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fab fa-weibo"></i>
+                    </div>
+                    <div class="contact-info">
+                        <div class="contact-platform">微博</div>
+                        <div class="contact-detail">@温泉havedream</div>
+                        <div class="contact-note">日常分享与更新</div>
+                    </div>
+                </li>
+            </ul>
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <p>© 2023 温泉的个人联系方式页面</p>
+            <div class="social-links">
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

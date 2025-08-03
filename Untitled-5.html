@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arduino密码锁炸弹模拟器</title>
+    <!-- 引入Prism.js代码高亮 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-okaidia.min.css" rel="stylesheet">
+    <!-- 引入Font Awesome图标 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 全局样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f7fa;
+            padding-bottom: 50px;
+        }
+        
+        /* 布局样式 */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 头部样式 */
+        header {
+            background: linear-gradient(135deg, #2b5876 0%, #4e4376 100%);
+            color: white;
+            padding: 40px 0;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .project-title {
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .project-subtitle {
+            font-size: 1.1rem;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+        
+        /* 项目信息卡片 */
+        .project-info {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .info-title {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+        
+        .author-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: #7f8c8d;
+            font-size: 20px;
+        }
+        
+        .author-name {
+            font-weight: 500;
+        }
+        
+        .author-uid {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+        
+        .materials-list {
+            margin-top: 20px;
+        }
+        
+        .materials-list h3 {
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .materials-list ul {
+            list-style-type: none;
+        }
+        
+        .materials-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+        }
+        
+        .material-name {
+            flex: 1;
+        }
+        
+        .material-qty {
+            color: #7f8c8d;
+        }
+        
+        /* 代码展示区 */
+        .code-section {
+            background: #2b2b2b;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+        
+        .code-header {
+            background: #1e1e1e;
+            color: #ccc;
+            padding: 10px 15px;
+            font-family: 'Consolas', monospace;
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .code-filename {
+            font-weight: 500;
+        }
+        
+        .copy-btn {
+            background: #3a3a3a;
+            color: #ccc;
+            border: none;
+            padding: 3px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Consolas', monospace;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+        }
+        
+        .copy-btn:hover {
+            background: #4a4a4a;
+            color: white;
+        }
+        
+        pre[class*="language-"] {
+            margin: 0;
+            border-radius: 0;
+        }
+        
+        /* 功能说明 */
+        .features {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            padding: 25px;
+        }
+        
+        .features-title {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+        
+        .feature-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .feature-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .feature-title {
+            font-weight: 500;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+        
+        /* 页脚 */
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .project-title {
+                font-size: 1.8rem;
+            }
+            
+            .project-subtitle {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部区域 -->
+    <header>
+        <div class="container">
+            <h1 class="project-title">Arduino密码锁炸弹模拟器</h1>
+            <p class="project-subtitle">基于4×4矩阵键盘和LCD显示屏的互动项目</p>
+        </div>
+    </header>
+    
+    <!-- 主要内容区 -->
+    <div class="container">
+        <!-- 项目信息 -->
+        <div class="project-info">
+            <h2 class="info-title">项目信息</h2>
+            
+            <div class="author-info">
+                <div class="author-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div>
+                    <div class="author-name">温泉havedream</div>
+                    <div class="author-uid">bilibili UID: 1205960642</div>
+                </div>
+            </div>
+            
+            <div class="materials-list">
+                <h3>所需材料清单</h3>
+                <ul>
+                    <li>
+                        <span class="material-name">4×4矩阵键盘</span>
+                        <span class="material-qty">×1</span>
+                    </li>
+                    <li>
+                        <span class="material-name">Arduino Uno/Nano主控</span>
+                        <span class="material-qty">×1</span>
+                    </li>
+                    <li>
+                        <span class="material-name">任意颜色LED</span>
+                        <span class="material-qty">×1</span>
+                    </li>
+                    <li>
+                        <span class="material-name">1602 LCD显示屏</span>
+                        <span class="material-qty">×1</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <div style="margin-top: 20px; font-size: 0.9rem; color: #7f8c8d;">
+                <i class="fas fa-exclamation-circle"></i> 转载请经过作者允许，感谢支持！
+            </div>
+        </div>
+        
+        <!-- 代码展示 -->
+        <div class="code-section">
+            <div class="code-header">
+                <span class="code-filename">bomb_simulator.ino</span>
+                <button class="copy-btn" onclick="copyCode()">复制代码</button>
+            </div>
+            <pre><code class="language-c">
+                /*原作者
+  bilibili: 温泉havedream(UID:1205960642)
+  --------------所需材料----------------
+  4*4矩阵键盘--------*1
+  Arduino Uno/Nano主控------*1
+  任意颜色LED----------------*1
+  1602 LCD------------------*1
+  转载请经过作者允许，感谢支持！！！
+*/
+
+#include <Keypad.h>
+#include <LiquidCrystal_I2C.h>
+#include <Wire.h>
+
+// 常量定义
+const char CORRECT_PASSWORD[] = "7355608";  // 正确密码
+const byte PASSWORD_LENGTH = 7;            // 密码长度
+const byte LED_PIN_1 = 12;                 // LED引脚1
+const byte LED_PIN_2 = 13;                 // LED引脚2
+const byte RELAY_PIN = 10;                 // 继电器引脚(未使用)
+
+// LCD初始化
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+// 密码输入缓冲区
+char inputBuffer[PASSWORD_LENGTH + 1]; // +1 for null terminator
+byte inputIndex = 0;
+
+// 键盘配置
+const byte ROWS = 4;
+const byte COLS = 4;
+char keys[ROWS][COLS] = {
+  {'1','2','3','A'},
+  {'4','5','6','B'},
+  {'7','8','9','C'},
+  {'*','0','#','D'}
+};
+
+byte rowPins[ROWS] = {8, 9, 10, 11};
+byte colPins[COLS] = {4, 5, 6, 7};
+
+Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
+
+void setup() {
+  // 初始化LCD
+  lcd.init();
+  lcd.backlight();
+  
+  // 初始化串口
+  Serial.begin(9600);
+  
+  // 设置引脚模式
+  pinMode(LED_PIN_1, OUTPUT);
+  pinMode(LED_PIN_2, OUTPUT);
+  pinMode(RELAY_PIN, OUTPUT);
+  
+  // 初始显示
+  showInitialMessage();
+}
+
+void loop() {
+  char key = keypad.getKey();
+  
+  if (key) {
+    handleKeyPress(key);
+  }
+}
+
+// 显示初始消息
+void showInitialMessage() {
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("C4 no Password");
+  lcd.setCursor(6, 1);
+  lcd.print("*******");
+}
+
+// 处理按键输入
+void handleKeyPress(char key) {
+  if (inputIndex < PASSWORD_LENGTH) {
+    // 显示按键并存储
+    lcd.setCursor(inputIndex + 5, 1);
+    lcd.print(key);
+    inputBuffer[inputIndex] = key;
+    inputIndex++;
+    delay(200); // 适当延迟防止按键抖动
+  } else {
+    // 密码输入完成，进行验证
+    checkPassword();
+    resetInput();
+  }
+}
+
+// 验证密码
+void checkPassword() {
+  lcd.clear();
+  
+  if (strncmp(inputBuffer, CORRECT_PASSWORD, PASSWORD_LENGTH) == 0) {
+    // 密码正确，触发倒计时
+    startCountdown();
+    showBoomMessage();
+  } else {
+    // 密码错误
+    showErrorMessage();
+  }
+}
+
+// 重置输入
+void resetInput() {
+  inputIndex = 0;
+  memset(inputBuffer, 0, sizeof(inputBuffer));
+  showInitialMessage();
+}
+
+// 显示错误消息
+void showErrorMessage() {
+  lcd.setCursor(0, 0);
+  lcd.print("password error");
+  delay(3000);
+}
+
+// 显示爆炸消息
+void showBoomMessage() {
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("boom!!!");
+  lcd.setCursor(2, 1);
+  lcd.print("******");
+}
+
+// 倒计时效果
+void startCountdown() {
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Bomb activation");
+  lcd.setCursor(6, 1);
+  lcd.print("******");
+  
+  // 倒计时阶段1: 慢速闪烁
+  blinkSequence(500, 10);
+  
+  // 倒计时阶段2: 中速闪烁
+  blinkSequence(400, 10);
+  
+  // 倒计时阶段3: 快速闪烁
+  blinkSequence(300, 10);
+  
+  // 倒计时阶段4: 极快闪烁
+  blinkSequence(200, 10);
+  
+  // 最后急促闪烁
+  blinkSequence(100, 4);
+  blinkSequence(50, 4);
+}
+
+// LED闪烁序列
+void blinkSequence(int interval, int times) {
+  for (int i = 0; i < times; i++) {
+    digitalWrite(LED_PIN_1, HIGH);
+    digitalWrite(LED_PIN_2, HIGH);
+    delay(interval);
+    digitalWrite(LED_PIN_1, LOW);
+    digitalWrite(LED_PIN_2, LOW);
+    delay(interval);
+  }
+}
+
+  
+  
+</code></pre>
+        </div>
+        
+        <!-- 功能说明 -->
+        <div class="features">
+            <h2 class="features-title">功能说明</h2>
+            
+            <div class="feature-item">
+                <h3 class="feature-title">密码输入功能</h3>
+                <p>通过4×4矩阵键盘输入7位密码(7355608)，密码正确后触发倒计时效果。</p>
+            </div>
+            
+            <div class="feature-item">
+                <h3 class="feature-title">LCD显示反馈</h3>
+                <p>1602 LCD显示屏实时显示输入状态、错误提示和倒计时动画。</p>
+            </div>
+            
+            <div class="feature-item">
+                <h3 class="feature-title">LED模拟效果</h3>
+                <p>通过LED闪烁模拟炸弹倒计时和爆炸效果，逐渐加快闪烁频率。</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <p>© 2023 Arduino密码锁炸弹模拟器 | 代码作者: 温泉havedream</p>
+        </div>
+    </footer>
+    
+    <!-- 引入Prism.js代码高亮库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-c.min.js"></script>
+    
+    <!-- 复制代码功能 -->
+    <script>
+        function copyCode() {
+            const code = document.querySelector('code').innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                const btn = document.querySelector('.copy-btn');
+                btn.textContent = '已复制!';
+                setTimeout(() => {
+                    btn.textContent = '复制代码';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>

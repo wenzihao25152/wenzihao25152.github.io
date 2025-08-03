@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arduino代码库</title>
+    <!-- 引入Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <!-- 引入Prism.js代码高亮 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-okaidia.min.css" rel="stylesheet" />
+    <style>
+        /* 全局样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #e0e0e0;
+            background-color: #121212;
+            padding-bottom: 50px;
+        }
+        
+        a {
+            text-decoration: none;
+            color: #4fc3f7;
+        }
+        
+        a:hover {
+            color: #0288d1;
+        }
+        
+        /* 布局样式 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 头部样式 */
+        header {
+            background-color: #0d47a1;
+            color: white;
+            padding: 30px 0;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            border-bottom: 4px solid #4fc3f7;
+        }
+        
+        .header-content {
+            text-align: center;
+        }
+        
+        .logo {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 2.8rem;
+            font-weight: 400;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+        
+        /* 导航栏 */
+        nav {
+            background-color: #01579b;
+            padding: 15px 0;
+            margin-bottom: 30px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+        
+        nav ul li {
+            margin: 0 15px;
+        }
+        
+        nav ul li a {
+            color: white;
+            font-weight: 500;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+            font-family: 'Share Tech Mono', monospace;
+        }
+        
+        nav ul li a:hover {
+            background-color: rgba(79, 195, 247, 0.3);
+        }
+        
+        /* 代码分类区 */
+        .category {
+            margin-bottom: 50px;
+            background: #1e1e1e;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            overflow: hidden;
+            border-left: 4px solid #4fc3f7;
+        }
+        
+        .category-header {
+            background-color: #01579b;
+            color: white;
+            padding: 15px 20px;
+            font-size: 1.3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Share Tech Mono', monospace;
+        }
+        
+        .category-count {
+            background: rgba(79, 195, 247, 0.2);
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        /* 代码卡片 */
+        .code-card {
+            border-bottom: 1px solid #333;
+            padding: 20px;
+        }
+        
+        .code-card:last-child {
+            border-bottom: none;
+        }
+        
+        .code-title {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: #4fc3f7;
+            font-family: 'Share Tech Mono', monospace;
+        }
+        
+        .code-description {
+            margin-bottom: 15px;
+            color: #b0b0b0;
+        }
+        
+        /* 代码高亮区域 */
+        pre[class*="language-"] {
+            margin: 0;
+            border-radius: 0;
+            background: #1e1e1e !important;
+            border-left: 4px solid #4fc3f7;
+        }
+        
+        .code-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #757575;
+        }
+        
+        .hardware-used {
+            background-color: #333;
+            padding: 8px 12px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+        
+        .hardware-used span {
+            font-weight: bold;
+            color: #4fc3f7;
+        }
+        
+        /* 页脚 */
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: #757575;
+            font-size: 0.9rem;
+            border-top: 1px solid #333;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2rem;
+            }
+            
+            nav ul li {
+                margin: 5px 8px;
+            }
+            
+            .category-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .category-count {
+                margin-top: 5px;
+            }
+            
+            .code-meta {
+                flex-direction: column;
+            }
+            
+            .code-meta span {
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部区域 -->
+    <header>
+        <div class="container header-content">
+            <h1 class="logo">ARDUINO CODE HUB</h1>
+            <p class="subtitle">收集与分享实用的Arduino代码</p>
+        </div>
+    </header>
+    
+    <!-- 导航栏 -->
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="#basic">基础示例</a></li>
+                <li><a href="#sensors">传感器</a></li>
+                <li><a href="#motors">电机控制</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- 主要内容区 -->
+    <div class="container">
+        <!-- 基础示例分类 -->
+        <section id="basic" class="category">
+            <div class="category-header">
+                <h2>基础示例</h2>
+                <span class="category-count">3个代码片段</span>
+            </div>
+            
+            <div class="code-card">
+                <h3 class="code-title">Blink - LED闪烁</h3>
+                <p class="code-description">Arduino的"Hello World" - 让板载LED闪烁</p>
+                <pre><code class="language-c">// 设置LED引脚
+const int ledPin = LED_BUILTIN;  // 大多数Arduino板载LED连接的引脚
+
+void setup() {
+  // 初始化数字引脚为输出模式
+  pinMode(ledPin, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(ledPin, HIGH);   // 点亮LED
+  delay(1000);                  // 等待1秒
+  digitalWrite(ledPin, LOW);    // 熄灭LED
+  delay(1000);                  // 再等待1秒
+}</code></pre>
+                <div class="hardware-used">
+                    硬件: <span>Arduino Uno</span> | 所需组件: <span>无(使用板载LED)</span>
+                </div>
+                <div class="code-meta">
+                    <span>添加于: 2023-06-10</span>
+                    <span>标签: 基础, LED</span>
+                </div>
+            </div>
+            
+            <div class="code-card">
+                <h3 class="code-title">按钮控制LED</h3>
+                <p class="code-description">使用按钮控制LED灯的开关</p>
+                <pre><code class="language-c">const int buttonPin = 2;    // 按钮连接的引脚
+const int ledPin = 13;      // LED连接的引脚
+int buttonState = 0;        // 存储按钮状态的变量
+
+void setup() {
+  pinMode(ledPin, OUTPUT);      // 初始化LED引脚为输出
+  pinMode(buttonPin, INPUT);    // 初始化按钮引脚为输入
+}
+
+void loop() {
+  // 读取按钮状态
+  buttonState = digitalRead(buttonPin);
+  
+  // 检查按钮是否被按下
+  if (buttonState == HIGH) {
+    digitalWrite(ledPin, HIGH);   // 点亮LED
+  } else {
+    digitalWrite(ledPin, LOW);    // 熄灭LED
+  }
+}</code></pre>
+                <div class="hardware-used">
+                    硬件: <span>Arduino Uno</span> | 所需组件: <span>按钮开关 ×1, LED ×1, 220Ω电阻 ×1, 10kΩ电阻 ×1</span>
+                </div>
+                <div class="code-meta">
+                    <span>添加于: 2023-06-12</span>
+                    <span>标签: 输入, 输出, 按钮</span>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 传感器分类 -->
+        <section id="sensors" class="category">
+            <div class="category-header">
+                <h2>传感器</h2>
+                <span class="category-count">2个代码片段</span>
+            </div>
+            
+            <div class="code-card">
+                <h3 class="code-title">DHT11温湿度传感器</h3>
+                <p class="code-description">读取DHT11传感器的温度和湿度数据</p>
+                <pre><code class="language-c">#include &lt;DHT.h&gt;
+
+#define DHTPIN 2        // DHT数据引脚
+#define DHTTYPE DHT11   // DHT 11
+
+DHT dht(DHTPIN, DHTTYPE);
+
+void setup() {
+  Serial.begin(9600);
+  dht.begin();
+}
+
+void loop() {
+  delay(2000);  // 两次读取之间等待2秒
+  
+  float h = dht.readHumidity();      // 读取湿度(%)
+  float t = dht.readTemperature();   // 读取温度(摄氏度)
+  
+  // 检查读取是否失败
+  if (isnan(h) || isnan(t)) {
+    Serial.println("无法从DHT传感器读取数据!");
+    return;
+  }
+  
+  Serial.print("湿度: ");
+  Serial.print(h);
+  Serial.print("%\t");
+  Serial.print("温度: ");
+  Serial.print(t);
+  Serial.println("°C");
+}</code></pre>
+                <div class="hardware-used">
+                    硬件: <span>Arduino Uno</span> | 所需组件: <span>DHT11传感器 ×1, 10kΩ电阻 ×1</span>
+                </div>
+                <div class="code-meta">
+                    <span>添加于: 2023-06-15</span>
+                    <span>标签: 传感器, 温湿度, DHT11</span>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 电机控制分类 -->
+        <section id="motors" class="category">
+            <div class="category-header">
+                <h2>电机控制</h2>
+                <span class="category-count">1个代码片段</span>
+            </div>
+            
+            <div class="code-card">
+                <h3 class="code-title">L298N控制直流电机</h3>
+                <p class="code-description">使用L298N电机驱动模块控制直流电机</p>
+                <pre><code class="language-c">// 定义电机控制引脚
+const int enA = 9;    // 使能引脚
+const int in1 = 8;
+const int in2 = 7;
+
+void setup() {
+  // 设置所有电机控制引脚为输出
+  pinMode(enA, OUTPUT);
+  pinMode(in1, OUTPUT);
+  pinMode(in2, OUTPUT);
+  
+  // 初始停止电机
+  digitalWrite(in1, LOW);
+  digitalWrite(in2, LOW);
+}
+
+void loop() {
+  // 电机正转
+  digitalWrite(in1, HIGH);
+  digitalWrite(in2, LOW);
+  analogWrite(enA, 200);  // 设置速度(0-255)
+  delay(2000);
+  
+  // 电机停止
+  digitalWrite(in1, LOW);
+  digitalWrite(in2, LOW);
+  delay(1000);
+  
+  // 电机反转
+  digitalWrite(in1, LOW);
+  digitalWrite(in2, HIGH);
+  analogWrite(enA, 200);  // 设置速度(0-255)
+  delay(2000);
+  
+  // 电机停止
+  digitalWrite(in1, LOW);
+  digitalWrite(in2, LOW);
+  delay(1000);
+}</code></pre>
+                <div class="hardware-used">
+                    硬件: <span>Arduino Uno</span> | 所需组件: <span>L298N电机驱动模块 ×1, 直流电机 ×1, 外部电源 ×1</span>
+                </div>
+                <div class="code-meta">
+                    <span>添加于: 2023-06-18</span>
+                    <span>标签: 电机, L298N, PWM</span>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <p>© 2023 Arduino代码库 | 使用 <a href="https://prismjs.com/" target="_blank">Prism.js</a> 实现代码高亮</p>
+            <p style="margin-top: 10px;">Arduino和Arduino标识是Arduino AG的注册商标</p>
+        </div>
+    </footer>
+    
+    <!-- 引入Prism.js代码高亮库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-c.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-cpp.min.js"></script>
+</body>
+</html>
